@@ -1,20 +1,35 @@
+class EnglishLocalizer:
+    def localize(self, msg):
+        return msg
 
-class Animal:
-    name = None
-    age = None
-    species = None
+class ChineseLocalizer:
+    def __init__(self):
+        self.translations = {"hello": "你好", "car": "车", "city": "城市"}
+    def localize(self, msg):
+        return self.translations.get(msg, msg)
 
-    def __init__(self, name, age, species):
-        self.name = name
-        self.age = age
-        self.species = species
+class VietnameseLocalizer:
+    def __init__(self):
+        self.translations = {"hello": "xin chào", "car" : "xe", "city" : "thành phố"}
+    def localize(self, msg):
+        return self.translations.get(msg, msg)
 
-    def __str__(self):
-        print("Name: " + str(self.name))
-        print("Age: " + str(self.age))
-        print("Species: " + str(self.species))
+def Factory(language = "English"):
 
-if __name__ == "__main__" :
+    localizers = {
+        "English" : EnglishLocalizer,
+        "Chinese" : ChineseLocalizer,
+        "Vietnamese" : VietnameseLocalizer
+    }
 
-    animal = Animal("Tina", 1, "Dog")
-    animal.__str__()
+    return localizers[language]();
+
+if __name__ == '__main__':
+
+    v = Factory("Vietnamese")
+
+    print(v.localize("hello"))
+
+
+
+
